@@ -6,7 +6,7 @@ info:
   severity: medium
   description: Searches for the pattern /s3 on passed URLs.
 
-http:
+requests:
   - method: GET
     path:
       - "{{BaseURL}}/"
@@ -16,5 +16,6 @@ http:
         words:
           - "NoSuchBucket"
           - "The specified bucket does not exist"
-    condition: or
-    part: body
+        condition: or
+        part: body
+
