@@ -1,0 +1,65 @@
+id: subdomain-takeover 
+
+info:
+  name: cnme-github
+  author: mohamed
+  severity: high
+
+dns: 
+  - name: '{{FQDN}}'
+    type: CNAME  # تصحيح الكتابة من "tyep" إلى "type"
+    class: inet
+    recursion: true
+    retries: 5
+    matchers-condition: and
+    matchers:
+      - type: word
+        name: attdns
+        words:
+          - 'CNAME'
+      - type: word
+        condition: or
+        name: attdns
+        words:
+          - 'github'
+          - 'elasticbeanstalk'
+          - 's3'
+          - 's3.amazonaws'
+          - 'airee.ru'         
+          - 'animaapp.io'
+          - 'bitbucket.io'
+          - 'hatenablog.com'
+          - 'furyns.com'
+          - 'trydiscourse.com'
+          - 'surge.sh'
+          - 'surveysparrow'
+          - 'uberflip.com'
+          - 'wordpress' 
+          - 'worksites.net'   
+          - '69.164.223.206'  
+          - '52.16.160.97'  
+          - 'ngrok.io'  
+          - 'cloudapp.net'
+          - 'cloudapp.azure.com'
+          - 'azurewebsites.net'
+          - 'blob.core.windows.net'
+          - 'cloudapp.azure.com'
+          - 'azure-api.net'
+          - 'azurehdinsight.net'
+          - 'azureedge.net'
+          - 'azurecontainer.io'
+          - 'database.windows.net'
+          - 'azuredatalakestore.net'
+          - 'search.windows.net'
+          - 'azurecr.io'
+          - 'redis.cache.windows.net'
+          - 'azurehdinsight.net'
+          - 'servicebus.windows.net'
+          - 'visualstudio.com'
+          - 'launchrock.com'
+          - 'helprace.com'
+          - 'helpscoutdocs.com'
+          - 'helpjuice.com'
+          - 'hatenablog.com'
+
+

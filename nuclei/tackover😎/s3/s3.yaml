@@ -1,0 +1,28 @@
+id: subdomain-takeover 
+
+info:
+  name: cnme-github
+  author: mohamed
+  severity: high
+
+dns: 
+  - name: '{{FQDN}}'
+    type: CNAME  
+    class: inet
+    recursion: true
+    retries: 5
+    matchers-condition: and
+    matchers:
+      - type: word
+        name: attdns
+        words:
+          - 'CNAME'
+      - type: word
+        condition: or
+        name: attdns
+        words:
+          - 's3'
+          - 's3.amazonaws'
+          - '.amazonaws.com'
+
+
