@@ -1,0 +1,43 @@
+id: HTML-injection 
+
+info:
+  name: html
+  author: mohamed
+  severity: medium
+  description: Searches for the pattern html on passed URLs.
+  
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/\"><h1>teexss</h1>"
+      - "{{BaseURL}}/<h1>teexss</h1>"
+      - "{{BaseURL}}/%3Ch1%3Eteexss%3C%2Fh1%3E"
+      - "{{BaseURL}}/}'`><h1>teexss</h1>"
+      - "{{BaseURL}}/PGgxPnRlZXhzczwvaDE+"
+      - "{{BaseURL}}/%50%47%67%78%50%6e%52%6c%5a%58%68%7a%63%7a%77%76%61%44%45%2b"
+      - "{{BaseURL}}/%3c%68%31%3e%74%65%65%78%73%73%3c%2f%68%31%3e"
+      - "{{BaseURL}}/}'`><h1>teexss</h1>"
+      - "{{BaseURL}}/<a href='https://www.google.com'>HTML</a>"
+      - "{{BaseURL}}/&#x3c;&#x68;&#x31;&#x3e;&#x74;&#x65;&#x65;&#x78;&#x73;&#x73;&#x3c;&#x2f;&#x68;&#x31;&#x3e;"
+      - "{{BaseURL}}/%25%33%63%25%36%38%25%33%31%25%33%65%25%37%34%25%36%35%25%36%35%25%37%38%25%37%33%25%37%33%25%33%63%25%32%66%25%36%38%25%33%31%25%33%65"
+      - "{{BaseURL}}/<h1><font Color=red>Visit Our New WebSite </h1><h3><mark><a href=`https://example.com`>e x a m p l e . c o m </a></mark></h3>"
+    host-redirects: true
+    max-redirects: 3
+
+    matchers-condition: or
+    matchers:
+      - type: word
+        part: body
+        name: ☠xss-svg☠
+        words:
+           - "<h1>teexss</h1>"
+      - type: word
+        part: body
+        name: mybe-xss
+        words:
+           - "<a href='https://www.google.com'>HTML"
+      - type: word
+        part: body
+        name: html-h1-done
+        words:
+           - "</h1><h3><mark><a href=`https://example.com`>e x a m p l e . c o m </a></mark>"

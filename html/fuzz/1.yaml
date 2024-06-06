@@ -1,0 +1,49 @@
+id: HTML-bypass 
+
+info:
+  name: Basic Reflection html
+  author: mohamed
+  severity: high
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+    payloads:
+      reflection:
+        - "-->'<h1>man</h1><!--"
+        - "<!hi]\\<a href='https://14.rs'>click me pls</a>'<!--"
+        - "<a href='https://www.google.com'>HTML</a>"
+        - "PGgxPndhcjwvaDE+"
+        - "<manf>'html';</manf>"
+        - "%3Ch1%3Egggg%3C%2Fh1%3E"
+        - "<div>HTMLx</div>"  
+        - "<ul>html</ul>" 
+        - "<nav>Html</nav>"  
+        - "%22%2f%3e%3c%68%31%3e%68%61%63%6b%65%72%3c%2f%68%31%3e%0a"
+        - "%25%32%32%25%32%66%25%33%65%25%33%63%25%36%38%25%33%31%25%33%65%25%36%38%25%36%31%25%36%33%25%36%62%25%36%35%25%37%32%25%33%63%25%32%66%25%36%38%25%33%31%25%33%65%25%30%61"
+        - "<iframe src='https://www.google.com' title='test'></iframe>" 
+    fuzzing:
+      - part: query
+        type: replace
+        mode: single
+        fuzz:
+          - "{{reflection}}"
+
+    matchers-condition: or
+    matchers:
+      - type: word
+        part: body
+        name: htmal
+        words:
+           - "<h1>man</h1>"
+           - "<a href='https://14.rs'>click me pls</a>"
+           - "<a href='https://www.google.com'>HTML</a>"
+           - "<h1>war</h1>"
+           - "<h1>gggg</h1>"
+           - "<h1>hacker</h1>"
+           - "<div>HTMLx</div>"
+           - "<nav>Html</nav>"
+           - "<iframe src='https://www.google.com' title='test'></iframe>"
+        condition: or
+  
